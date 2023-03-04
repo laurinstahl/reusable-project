@@ -1,4 +1,5 @@
 import { Button as ChakraButton } from '@chakra-ui/react';
+import  '../css/theme.css';
 
 const Button = (props) => {
   return <ChakraButton  {...props} />;

@@ -1,8 +1,8 @@
 import './App.css';
 import api from './util/axios';
 import { useEffect, useState } from 'react';
-import { Alert, ChakraProvider, Box } from '@chakra-ui/react';
-import { theme, Button, IconButton }   from './theme/index';
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import { theme, Button, IconButton, Alert }   from './theme/index';
 
 
 function App() {
