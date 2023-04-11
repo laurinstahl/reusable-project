@@ -1,11 +1,12 @@
-import './App.css';
-import api from './util/axios';
-import { useEffect, useState } from 'react';
+import api from '../util/axios';
+import { useEffect, useMemo, useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
-import { theme, Button, IconButton, Alert }   from './theme/index';
+import { theme, Button, IconButton, Alert }   from '../theme/index';
+import { useNavigate } from 'react-router-dom';
 
-export const itemList = () => {
 
+function ItemList(){
+  const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -18,13 +19,19 @@ export const itemList = () => {
     });
   }, []);
 
+  function clickHandler(id){
+    navigate(`/id/${id}`);
+  };
+  
+  
+
   return (
     <header className="App-header">
       <Box p="16px" display="flex" flexDirection="row" gap="8px">
         {items.map(item => {
           return (
             
-              <Button colorScheme="blue" color="brand.900" key={item.id}>{item.name}</Button>
+              <Button colorScheme="blue" color="brand.900" onClick={() => clickHandler(item._id)} href={`item/${item.id}`} key={item.id}>{item.name}</Button>
             
             )
         })}
@@ -50,3 +57,5 @@ export const itemList = () => {
     </header>
   );
 }
+
+export { ItemList };

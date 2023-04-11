@@ -3,8 +3,9 @@ import api from './util/axios';
 import { useEffect, useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { theme, Button, IconButton, Alert }   from './theme/index';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ItemList, ItemDetails } from './pages/index';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { ItemList, ItemDetails } from './pages/index';
+import {ItemDetails, ItemList} from './pages/index.js';
 
 function App() {
 
@@ -22,15 +23,12 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/" component={ItemList} />
-          <Route exact path="/item/:id" component={ItemDetails} />
-        </Switch>
-
+        <Router>
+        <Routes>
+          <Route exact path="/" element={<ItemList/>} />
+          <Route exact path="/id/:id" element={<ItemDetails/>} />
+        </Routes>
       </Router>
-      </div>
       </ChakraProvider>
     );
 }

@@ -1,52 +1,39 @@
-import './App.css';
-import api from './util/axios';
+import api from '../util/axios';
 import { useEffect, useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
-import { theme, Button, IconButton, Alert }   from './theme/index';
+import { theme, Button, IconButton, Alert }   from '../theme/index';
+import { useParams } from 'react-router-dom';
 
-export const itemDetails = () => {
 
-  const [items, setItems] = useState([]);
+function ItemDetails(){
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
 
   useEffect(() => {
-    api.get('/api/items')
+    api.get(`/api/items/${id}`)
     .then(response => {
-      setItems(response.data);
+      setItem(response.data);
     })
     .catch(error => {
       console.error(error);
     });
-  }, []);
-
+  }, [id]);
+  console.log(item);
   return (
-    <header className="App-header">
-      <Box p="16px" display="flex" flexDirection="row" gap="8px">
-        {items.map(item => {
-          return (
-            
-              <Button colorScheme="blue" color="brand.900" key={item.id}>{item.name}</Button>
-            
-            )
-        })}
-      </Box>
-      <Box p="16px" display="flex" flexDirection="row" gap="8px">
-        {items.map(item => {
-          return (
-            
-              <IconButton variant="primary" key={item.id}>{item.link}</IconButton>
-            
-            )
-        })}
-      </Box>
-      <Alert>Hello</Alert>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
+      <header display="flex" className="App-header">
+        {item?.name}
+      <div>
+        <p>
+        {item?.link}
+        </p>
+      </div>
+      <div>
+        <p>
+        {item?.description}
+        </p>
+      </div>
     </header>
   );
 }
+
+export {ItemDetails};
